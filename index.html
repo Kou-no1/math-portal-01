@@ -1,14 +1,13 @@
 <!DOCTYPE html>
-<html lang="ja">
-<head>
-<meta charset="UTF-8">
+<html lang="ja"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>算数アタック！ポータル ｜ 1年生</title>
 <link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+<title>算数アタック！ポータル ｜ 1年生</title>
 <style>
   :root {
-    --bg: #f3fbe9;
-    --primary: #6aa84f;
+    --bg: #fff5f5;
+    --primary: #ff6b6b;
     --secondary: #a8d877;
     --accent: #ffd166;
     --orange: #ff9f1c;
@@ -28,7 +27,7 @@
 
   /* ===== HEADER ===== */
   header {
-    background: linear-gradient(135deg, #4f8a2e 0%, #6aa84f 50%, #a8d877 100%);
+    background: linear-gradient(135deg, #e03e3e 0%, #ff6b6b 50%, #ffadad 100%);
     padding: 2rem 1rem 3rem;
     text-align: center;
     position: relative;
@@ -271,11 +270,33 @@
     .card-emoji { font-size: 2.2rem; }
     .card-title { font-size: 0.88rem; }
   }
+
+  .back-btn {
+    position: absolute;
+    top: 1rem; left: 1rem;
+    background: rgba(255,255,255,0.25);
+    color: white;
+    font-weight: 900;
+    font-size: 0.78rem;
+    padding: 0.5em 1em;
+    border-radius: 100px;
+    text-decoration: none;
+    z-index: 2;
+    backdrop-filter: blur(4px);
+    border: 2px solid rgba(255,255,255,0.4);
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+  .back-btn:hover {
+    background: rgba(255,255,255,0.4);
+    transform: translateY(-2px);
+  }
 </style>
 </head>
 <body>
 
 <header>
+  <a href="https://kou-no1.github.io/math-portal/" class="back-btn">← 学年選択にもどる</a>
+
   <div class="header-deco">🔢</div>
   <div class="header-deco">🎈</div>
   <div class="header-deco">⭐</div>
@@ -288,7 +309,7 @@
 
   <div class="wave">
     <svg viewBox="0 0 1200 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:50px;width:100%">
-      <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,50 L0,50 Z" fill="#f3fbe9"/>
+      <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,50 L0,50 Z" fill="#fff5f5"></path>
     </svg>
   </div>
 </header>
@@ -429,5 +450,6 @@
 
 <footer>本庄市教育委員会 ✦ 算数アタック問題ポータル</footer>
 
-</body>
-</html>
+
+
+</body></html>
