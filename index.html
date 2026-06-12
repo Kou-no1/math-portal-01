@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>算数アタック！ポータル ｜ 1年生</title>
+<link href="https://fonts.googleapis.com/css2?family=Kaisei+Decol:wght@400;700&family=M+PLUS+Rounded+1c:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f3fbe9;
+    --primary: #6aa84f;
+    --secondary: #a8d877;
+    --accent: #ffd166;
+    --orange: #ff9f1c;
+    --purple: #9b5de5;
+    --dark: #2d2d2d;
+    --card-shadow: 0 6px 20px rgba(0,0,0,0.12);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ===== HEADER ===== */
+  header {
+    background: linear-gradient(135deg, #4f8a2e 0%, #6aa84f 50%, #a8d877 100%);
+    padding: 2rem 1rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 120%;
+    height: 200%;
+    background: radial-gradient(ellipse at 50% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .header-deco {
+    position: absolute;
+    font-size: 3rem;
+    opacity: 0.2;
+    animation: float 4s ease-in-out infinite;
+    pointer-events: none;
+  }
+  .header-deco:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+  .header-deco:nth-child(2) { top: 20%; right: 8%; animation-delay: 1s; }
+  .header-deco:nth-child(3) { bottom: 20%; left: 12%; animation-delay: 2s; }
+  .header-deco:nth-child(4) { bottom: 10%; right: 5%; animation-delay: 0.5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-12px) rotate(5deg); }
+  }
+
+  .header-title {
+    font-family: 'Kaisei Decol', serif;
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    font-weight: 700;
+    color: white;
+    text-shadow: 3px 4px 0px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 1;
+    letter-spacing: 0.05em;
+  }
+
+  .header-title span {
+    display: inline-block;
+    animation: bounce-in 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .header-title span:nth-child(1) { animation-delay: 0.1s; }
+  .header-title span:nth-child(2) { animation-delay: 0.2s; }
+  .header-title span:nth-child(3) { animation-delay: 0.3s; }
+  .header-title span:nth-child(4) { animation-delay: 0.4s; }
+  .header-title span:nth-child(5) { animation-delay: 0.5s; }
+  .header-title span:nth-child(6) { animation-delay: 0.6s; }
+  .header-title span:nth-child(7) { animation-delay: 0.7s; }
+  .header-title span:nth-child(8) { animation-delay: 0.8s; }
+
+  @keyframes bounce-in {
+    0% { transform: translateY(-40px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+  }
+
+  .header-sub {
+    color: rgba(255,255,255,0.9);
+    font-size: 1rem;
+    margin-top: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    position: relative;
+    z-index: 1;
+  }
+
+  .wave {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+  }
+  .wave svg { display: block; }
+
+  /* ===== MAIN ===== */
+  main {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 2.5rem 1.2rem 4rem;
+  }
+
+  .section-label {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 900;
+    letter-spacing: 0.2em;
+    color: var(--primary);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fade-up 0.5s ease 0.3s both;
+  }
+
+  @keyframes fade-up {
+    from { transform: translateY(16px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  /* ===== GRID ===== */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1.2rem;
+  }
+
+  .card {
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem 1rem 1.2rem;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    text-decoration: none;
+    color: var(--dark);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    border: 3px solid transparent;
+    opacity: 0;
+    animation: fade-up 0.5s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 5px;
+    background: var(--card-color, var(--primary));
+    border-radius: 20px 20px 0 0;
+  }
+
+  .card:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 14px 30px rgba(0,0,0,0.18);
+    border-color: var(--card-color, var(--primary));
+  }
+
+  .card:active { transform: scale(0.97); }
+
+  .card.dummy {
+    opacity: 0.45 !important;
+    pointer-events: none;
+    filter: grayscale(0.6);
+  }
+  .card.dummy:hover { transform: none; box-shadow: var(--card-shadow); }
+  .card.dummy .card-num { background: #aaa; }
+  .card.dummy::before { background: #ccc; }
+  .card.dummy::after {
+    content: '作成中';
+    position: absolute;
+    top: 8px; right: -28px;
+    background: #999;
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    padding: 0.2em 2em;
+    transform: rotate(35deg);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+  }
+
+  .card-emoji {
+    font-size: 2.8rem;
+    line-height: 1;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.15));
+    transition: transform 0.2s ease;
+  }
+
+  .card:hover .card-emoji {
+    transform: scale(1.15) rotate(-5deg);
+  }
+
+  .card-num {
+    font-size: 0.7rem;
+    font-weight: 900;
+    color: white;
+    background: var(--card-color, var(--primary));
+    border-radius: 100px;
+    padding: 0.15em 0.6em;
+    letter-spacing: 0.05em;
+  }
+
+  .card-title {
+    font-size: 1rem;
+    font-weight: 900;
+    line-height: 1.3;
+    color: var(--dark);
+  }
+
+  .card-desc {
+    font-size: 0.72rem;
+    color: #888;
+    font-weight: 400;
+  }
+
+  .card:nth-child(1)  { animation-delay: 0.15s; }
+  .card:nth-child(2)  { animation-delay: 0.20s; }
+  .card:nth-child(3)  { animation-delay: 0.25s; }
+  .card:nth-child(4)  { animation-delay: 0.30s; }
+  .card:nth-child(5)  { animation-delay: 0.35s; }
+  .card:nth-child(6)  { animation-delay: 0.40s; }
+  .card:nth-child(7)  { animation-delay: 0.45s; }
+  .card:nth-child(8)  { animation-delay: 0.50s; }
+  .card:nth-child(9)  { animation-delay: 0.55s; }
+  .card:nth-child(10) { animation-delay: 0.60s; }
+  .card:nth-child(11) { animation-delay: 0.65s; }
+  .card:nth-child(12) { animation-delay: 0.70s; }
+  .card:nth-child(13) { animation-delay: 0.75s; }
+  .card:nth-child(14) { animation-delay: 0.80s; }
+  .card:nth-child(15) { animation-delay: 0.85s; }
+  .card:nth-child(16) { animation-delay: 0.90s; }
+  .card:nth-child(17) { animation-delay: 0.95s; }
+  .card:nth-child(18) { animation-delay: 1.00s; }
+
+  /* ===== FOOTER ===== */
+  footer {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 0.75rem;
+    color: #aaa;
+    font-weight: 400;
+  }
+
+  /* ===== RESPONSIVE ===== */
+  @media (max-width: 480px) {
+    .grid { grid-template-columns: repeat(2, 1fr); gap: 0.9rem; }
+    .card { padding: 1.1rem 0.7rem 0.9rem; }
+    .card-emoji { font-size: 2.2rem; }
+    .card-title { font-size: 0.88rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-deco">🔢</div>
+  <div class="header-deco">🎈</div>
+  <div class="header-deco">⭐</div>
+  <div class="header-deco">🍀</div>
+
+  <h1 class="header-title">
+    <span>算</span><span>数</span><span>ア</span><span>タ</span><span>ッ</span><span>ク</span><span>！</span><span>🎯</span>
+  </h1>
+  <p class="header-sub">本庄市 ✦ 1年生 アタック問題ポータル</p>
+
+  <div class="wave">
+    <svg viewBox="0 0 1200 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" style="height:50px;width:100%">
+      <path d="M0,30 C200,60 400,0 600,30 C800,60 1000,0 1200,30 L1200,50 L0,50 Z" fill="#f3fbe9"/>
+    </svg>
+  </div>
+</header>
+
+<main>
+  <p class="section-label">▶ たんげんをえらんでね！</p>
+
+  <div class="grid">
+
+    <div class="card dummy" style="--card-color:#6aa84f">
+      <div class="card-emoji">🐾</div>
+      <div class="card-num">01</div>
+      <div class="card-title">なかまづくりとかず</div>
+      <div class="card-desc">なかまをわけてかぞえよう</div>
+    </div>
+
+    <div class="card dummy" style="--card-color:#8bc34a">
+      <div class="card-emoji">🔢</div>
+      <div class="card-num">02</div>
+      <div class="card-title">なんばんめ</div>
+      <div class="card-desc">じゅんばんをかぞえよう</div>
+    </div>
+
+    <div class="card dummy" style="--card-color:#a8d877">
+      <div class="card-emoji">➕</div>
+      <div class="card-num">03</div>
+      <div class="card-title">あわせていくつ ふえるといくつ</div>
+      <div class="card-desc">たしざんのはじまり</div>
+    </div>
+
+    <div class="card dummy" style="--card-color:#ffd166">
+      <div class="card-emoji">➖</div>
+      <div class="card-num">04</div>
+      <div class="card-title">のこりはいくつ ちがいはいくつ</div>
+      <div class="card-desc">ひきざんのはじまり</div>
+    </div>
+
+    <div class="card dummy" style="--card-color:#06d6a0">
+      <div class="card-emoji">📏</div>
+      <div class="card-num">05</div>
+      <div class="card-title">どちらがながい</div>
+      <div class="card-desc">ながさをくらべよう</div>
+    </div>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/06seiri.html" style="--card-color:#ff9f1c">
+      <div class="card-emoji">📊</div>
+      <div class="card-num">06</div>
+      <div class="card-title">わかりやすくせいりしよう</div>
+      <div class="card-desc">グラフのもとになるかんがえ</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/07ookii.html" style="--card-color:#9b5de5">
+      <div class="card-emoji">🔟</div>
+      <div class="card-num">07</div>
+      <div class="card-title">10よりおおきいかず</div>
+      <div class="card-desc">じゅういちからにじゅうまで</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/08nanji.html" style="--card-color:#118ab2">
+      <div class="card-emoji">🕐</div>
+      <div class="card-num">08</div>
+      <div class="card-title">なんじ なんじはん</div>
+      <div class="card-desc">とけいをよもう</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/09mittsu.html" style="--card-color:#ef233c">
+      <div class="card-emoji">🧮</div>
+      <div class="card-num">09</div>
+      <div class="card-title">3つのかずのけいさん</div>
+      <div class="card-desc">じゅんにけいさんしよう</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/10ooi.html" style="--card-color:#6aa84f">
+      <div class="card-emoji">🥤</div>
+      <div class="card-num">10</div>
+      <div class="card-title">どちらがおおい</div>
+      <div class="card-desc">かさをくらべよう</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/11tashizan.html" style="--card-color:#8bc34a">
+      <div class="card-emoji">➕</div>
+      <div class="card-num">11</div>
+      <div class="card-title">たしざん</div>
+      <div class="card-desc">くりあがりのあるたしざん</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/12katachi.html" style="--card-color:#a8d877">
+      <div class="card-emoji">🔺</div>
+      <div class="card-num">12</div>
+      <div class="card-title">かたちあそび</div>
+      <div class="card-desc">いろいろなかたちであそぼう</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/13hikizan.html" style="--card-color:#ffd166">
+      <div class="card-emoji">➖</div>
+      <div class="card-num">13</div>
+      <div class="card-title">ひきざん</div>
+      <div class="card-desc">くりさがりのあるひきざん</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/14ookii.html" style="--card-color:#06d6a0">
+      <div class="card-emoji">💯</div>
+      <div class="card-num">14</div>
+      <div class="card-title">おおきいかず</div>
+      <div class="card-desc">100くらいまでのかず</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/15hirosa.html" style="--card-color:#ff9f1c">
+      <div class="card-emoji">🟩</div>
+      <div class="card-num">15</div>
+      <div class="card-title">どちらがひろい</div>
+      <div class="card-desc">ひろさをくらべよう</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/16jikan.html" style="--card-color:#9b5de5">
+      <div class="card-emoji">🕒</div>
+      <div class="card-num">16</div>
+      <div class="card-title">なんじなんぷん</div>
+      <div class="card-desc">とけいをよもう（ふんもよめる）</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/17tashihiki.html" style="--card-color:#118ab2">
+      <div class="card-emoji">🔢</div>
+      <div class="card-num">17</div>
+      <div class="card-title">たしざんとひきざん</div>
+      <div class="card-desc">いろいろなけいさん</div>
+    </a>
+
+    <a class="card" href="https://kou-no1.github.io/math-portal-01/18katachi.html" style="--card-color:#ef233c">
+      <div class="card-emoji">🟦</div>
+      <div class="card-num">18</div>
+      <div class="card-title">かたちづくり</div>
+      <div class="card-desc">いたやぼうでかたちをつくろう</div>
+    </a>
+
+  </div>
+</main>
+
+<footer>本庄市教育委員会 ✦ 算数アタック問題ポータル</footer>
+
+</body>
+</html>
